@@ -1,6 +1,7 @@
 import path from 'path';
 import TerserPlugin from 'terser-webpack-plugin';
 import * as Repack from '@callstack/repack';
+import appConfig from './app.json' assert {type: 'json'};
 
 /**
  * More documentation, installation, usage, motivation and differences with Metro is available at:
