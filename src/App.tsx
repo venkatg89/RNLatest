@@ -1,5 +1,5 @@
 import { ScriptManager } from '@callstack/repack/client';
-import React, { useState } from 'react';
+import React, { useReducer, useState } from 'react';
 import {
   Button,
   SafeAreaView,
@@ -8,14 +8,16 @@ import {
   Text,
   useColorScheme,
 } from 'react-native';
-
 import {Colors, Header} from 'react-native/Libraries/NewAppScreen';
+import { useDispatch } from 'react-redux';
+import { addPlace } from '../actions/place';
 
 const AsyncBody = React.lazy(
   () => import(/* webpackChunkName: "async_body" */ './AsyncBody'),
 );
 
 const App = () => {
+  const dispatch = useDispatch();
   const isDarkMode = useColorScheme() === 'dark';
   const [isPrefetched, setIsPrefetched] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -23,6 +25,9 @@ const App = () => {
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
+  const add = (name: any) => {
+    dispatch(addPlace(name))
+  }
 
   return (
     <SafeAreaView style={backgroundStyle}>

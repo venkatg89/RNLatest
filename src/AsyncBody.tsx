@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, useColorScheme, View} from 'react-native';
+import {FlatList, StyleSheet, Text, useColorScheme, View, AccessibilityInfo} from 'react-native';
 
 import {
   Colors,
@@ -7,16 +7,23 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+import { useSelector } from 'react-redux';
 import {Section} from './Section';
 
 function AsyncBody() {
   const isDarkMode = useColorScheme() === 'dark';
-
+  const places = useSelector((state: any) => state.places.places);
   return (
     <View
       style={{
         backgroundColor: isDarkMode ? Colors.black : Colors.white,
       }}>
+      <FlatList
+        data={places}
+        renderItem={({item}) => {
+          return <Text key={item.key}>{item.value}</Text>
+        }}
+      />
       <Section title="Step One">
         Edit <Text style={styles.highlight}>App.tsx</Text> to change screen
         and then come back to see your edits.
